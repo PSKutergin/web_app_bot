@@ -11,6 +11,15 @@ body {
     color: var(--tg-theme-text-color);
 }
 
+button {
+    color: var(--tg-theme-button-text-color);
+    background-color: var(--tg-theme-button-color);
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -25,11 +34,17 @@ body {
 }
 
 .cart-button {
+    padding: 0;
     width: 30px;
     height: 30px;
-    border: none;
     background: transparent;
-    cursor: pointer;
+    text-align: center;
+}
+
+.cart-button svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--tg-theme-button-color);
 }
 
 .count {
