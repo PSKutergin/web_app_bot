@@ -9,15 +9,13 @@ const products = async (url) => {
     products.forEach(product => {
         container.insertAdjacentHTML('beforeend', `
         <div class="product" />
-            <div class="product_img"></div>
+            <img class="product_img" src="/images/${product.id}.png">
             <div class="product_title">${product.title}</div>
             <div class="product_description">${product.description}</div>
-            <div class="product_price">
-                <span>Стоимость: <b>${product.price}</b></span>
+            <div class="product_extra">
+                <div class="product_price">${product.price} $</div>
+                <button class="product_btn">В корзину</button>
             </div>
-            <button class="product_btn">
-                Добавить в корзину
-            </button>
         </div>
     `)
     })
