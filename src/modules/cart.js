@@ -7,10 +7,15 @@ const cart = () => {
     const cartOpenBtn = document.querySelector('.cart-button')
     const cartCloseBtn = document.querySelector('.close-btn')
 
-    cartList.innerHTML = ''
+    const openCart = () => {
+        modal.classList.add('open')
+        renderCart()
+    }
 
     const renderCart = () => {
         const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+
+        cartList.innerHTML = ''
 
         cart.forEach(item => {
             cartList.insertAdjacentHTML('beforeend', `
@@ -55,14 +60,17 @@ const cart = () => {
         });
     }
 
-    cartOpenBtn.addEventListener('click', () => {
-        modal.classList.add('open')
-        renderCart()
-    })
-
+    cartOpenBtn.addEventListener('click', openCart);
     cartCloseBtn.addEventListener('click', () => {
         modal.classList.remove('open')
-    })
+    });
+
+    (() => {
+        tg.onEvent('mainButtonClicked', openCart)
+        return () => {
+            tg.offEvent('mainButtonClicked', openCart)
+        }
+    })();
 }
 
 export default cart

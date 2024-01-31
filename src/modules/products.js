@@ -17,7 +17,7 @@ const products = async (url) => {
         if (cart.length > 0) {
             tg.MainButton.show()
             tg.MainButton.setParams({
-                text: `Купить ${getTotalPrice(cart)}`
+                text: `В корзине на сумму ${getTotalPrice(cart)} $`
             })
         } else {
             tg.MainButton.hide()
