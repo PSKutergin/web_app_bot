@@ -1,13 +1,17 @@
 const getProducts = async (url) => {
-    const response = await fetch(url + '/products', {
-        method: 'GET',
-        headers: {
-            // 'ngrok-skip-browser-warning': 'true',
-            'Content-Type': 'application/json'
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url + '/products', false);
+    xhr.send();
+
+    let data
+
+    if (xhr.status === 200 && xhr.responseText) {
+        try {
+            return JSON.parse(xhr.responseText)
+        } catch (error) {
+            console.log(error);
         }
-    })
-    const data = await response.json()
-    return data
+    }
 }
 
 export default getProducts
