@@ -72,6 +72,10 @@ a {
     z-index: 3;
 }
 
+.count.hide {
+    display: none;
+}
+
 .title {
     font-size: 25px;
     text-align: center;

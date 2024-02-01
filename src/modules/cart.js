@@ -1,9 +1,9 @@
 import { useTelegram } from "./useTelegram"
-import { getTotalPrice } from "./helpers"
+import { getTotalPrice, showMainButton, showCountCart } from "./helpers"
 import sendOrder from "./sendOrder"
 
 const cart = () => {
-    const { tg, queryId } = useTelegram();
+    const { tg } = useTelegram();
     const modal = document.querySelector('.overlay')
     const cartFull = document.querySelector('.cart')
     const cartEmpty = document.querySelector('.cart-empty')
@@ -144,6 +144,9 @@ const cart = () => {
             sendOrder(cart)
             localStorage.setItem('cart', JSON.stringify([]))
         })
+
+        showCountCart(cart)
+        showMainButton(cart)
     }
 
     cartOpenBtn.addEventListener('click', openCart);

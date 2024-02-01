@@ -1,23 +1,10 @@
 import getProducts from "./getProducts"
-import { useTelegram } from "./useTelegram"
-import { getTotalPrice } from "./helpers"
+import { showMainButton, showCountCart } from "./helpers"
 
 const products = async (url) => {
-    const { tg, queryId } = useTelegram();
     const products = await getProducts(url)
     const container = document.querySelector('.products')
     let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
-
-    const showMainButton = (cart) => {
-        if (cart.length > 0) {
-            tg.MainButton.show()
-            tg.MainButton.setParams({
-                text: `В корзине на сумму ${getTotalPrice(cart)} $`
-            })
-        } else {
-            tg.MainButton.hide()
-        }
-    }
 
     container.innerHTML = '';
 
@@ -63,6 +50,7 @@ const products = async (url) => {
         })
     })
 
+    showCountCart(cart)
     showMainButton(cart)
 }
 
