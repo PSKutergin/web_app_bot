@@ -1,10 +1,12 @@
 import getProducts from "./getProducts"
 import { showMainButton, showCountCart } from "./helpers"
 
-const products = async (url) => {
+const products = async (url, cartItems) => {
     const products = await getProducts(url)
     const container = document.querySelector('.products')
-    let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+    // let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+
+    let cart = cartItems.getCart()
 
     container.innerHTML = '';
 
@@ -26,11 +28,13 @@ const products = async (url) => {
 
     btns.forEach(btn => {
         btn.addEventListener('click', (event) => {
-            cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+            // cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+            cart = cartItems.getCart()
+
             const id = event.target.closest('.product').dataset.id
             const product = products.find(product => product.id === id)
 
-            if (cart.some(item => item.id === id)) {
+            if (cart.length > 0 && cart.some(item => item.id === id)) {
                 cart = cart.map(item => {
                     if (item.id === id) {
                         item.count++
@@ -47,7 +51,8 @@ const products = async (url) => {
             showCountCart(cart)
             showMainButton(cart)
 
-            localStorage.setItem('cart', JSON.stringify(cart))
+            // localStorage.setItem('cart', JSON.stringify(cart))
+            cartItems.setCart(cart)
         })
     })
 

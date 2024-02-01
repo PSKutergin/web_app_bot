@@ -2,7 +2,7 @@ import { useTelegram } from "./useTelegram"
 import { getTotalPrice, showMainButton, showCountCart } from "./helpers"
 import sendOrder from "./sendOrder"
 
-const cart = () => {
+const cart = (cartItems) => {
     const { tg } = useTelegram();
     const modal = document.querySelector('.overlay')
     const cartFull = document.querySelector('.cart')
@@ -17,7 +17,8 @@ const cart = () => {
     }
 
     const addItemToCart = (id) => {
-        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const cart = cartItems.getCart()
         const newCart = cart.map(item => {
             if (item.id === id) {
                 item.count++
@@ -25,11 +26,13 @@ const cart = () => {
             return item
         })
 
-        localStorage.setItem('cart', JSON.stringify(newCart))
+        cartItems.setCart(newCart)
+        // localStorage.setItem('cart', JSON.stringify(newCart))
     }
 
     const minusItemFromCart = (id) => {
-        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const cart = cartItems.getCart()
         let newCart = cart.map(item => {
             if (item.id === id) {
                 item.count--
@@ -38,17 +41,21 @@ const cart = () => {
         })
         newCart = newCart.filter(item => item.count > 0)
 
-        localStorage.setItem('cart', JSON.stringify(newCart))
+        cartItems.setCart(newCart)
+        // localStorage.setItem('cart', JSON.stringify(newCart))
     }
 
     const removeItemFromCart = (id) => {
-        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const cart = cartItems.getCart()
         const newCart = cart.filter(item => item.id !== id)
-        localStorage.setItem('cart', JSON.stringify(newCart))
+        // localStorage.setItem('cart', JSON.stringify(newCart))
+        cartItems.setCart(newCart)
     }
 
     const renderCart = () => {
-        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const cart = cartItems.getCart()
 
         cartList.innerHTML = ''
 
@@ -142,7 +149,8 @@ const cart = () => {
 
         sendOrderBtn.addEventListener('click', () => {
             sendOrder(cart)
-            localStorage.setItem('cart', JSON.stringify([]))
+            // localStorage.setItem('cart', JSON.stringify([]))
+            cartItems.setCart([])
         })
 
         showCountCart(cart)
