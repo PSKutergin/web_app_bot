@@ -1,5 +1,5 @@
 const getProducts = async (url) => {
-    const response = await fetch(url + '/products', {
+    const response = await fetch('/api/products', {
         method: 'GET',
         headers: {
             'ngrok-skip-browser-warning': 'true',
