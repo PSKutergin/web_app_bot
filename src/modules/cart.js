@@ -16,45 +16,7 @@ const cart = (cartItems) => {
         renderCart()
     }
 
-    const addItemToCart = (id) => {
-        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
-        const cart = cartItems.getCart()
-        const newCart = cart.map(item => {
-            if (item.id === id) {
-                item.count++
-            }
-            return item
-        })
-
-        cartItems.setCart(newCart)
-        // localStorage.setItem('cart', JSON.stringify(newCart))
-    }
-
-    const minusItemFromCart = (id) => {
-        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
-        const cart = cartItems.getCart()
-        let newCart = cart.map(item => {
-            if (item.id === id) {
-                item.count--
-            }
-            return item
-        })
-        newCart = newCart.filter(item => item.count > 0)
-
-        cartItems.setCart(newCart)
-        // localStorage.setItem('cart', JSON.stringify(newCart))
-    }
-
-    const removeItemFromCart = (id) => {
-        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
-        const cart = cartItems.getCart()
-        const newCart = cart.filter(item => item.id !== id)
-        // localStorage.setItem('cart', JSON.stringify(newCart))
-        cartItems.setCart(newCart)
-    }
-
     const renderCart = () => {
-        // const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
         const cart = cartItems.getCart()
 
         cartList.innerHTML = ''
@@ -122,7 +84,7 @@ const cart = (cartItems) => {
                 const parent = e.target.closest('.cart-item');
                 const id = parent.getAttribute('data-id');
 
-                addItemToCart(id);
+                cartItems.addToCart(id)
                 renderCart()
             })
         })
@@ -132,7 +94,7 @@ const cart = (cartItems) => {
                 const parent = e.target.closest('.cart-item');
                 const id = parent.getAttribute('data-id');
 
-                minusItemFromCart(id);
+                cartItems.minusFromCart(id)
                 renderCart()
             })
         })
@@ -142,15 +104,14 @@ const cart = (cartItems) => {
                 const parent = e.target.closest('.cart-item');
                 const id = parent.getAttribute('data-id');
 
-                removeItemFromCart(id);
+                cartItems.removeFromCart(id)
                 renderCart()
             })
         })
 
         sendOrderBtn.addEventListener('click', () => {
             sendOrder(cart)
-            // localStorage.setItem('cart', JSON.stringify([]))
-            cartItems.setCart([])
+            cartItems.clearCart()
         })
 
         showCountCart(cart)

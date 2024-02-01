@@ -9,15 +9,27 @@ export class CartItems {
         this.cart = cart
     }
 
-    addToCart(item) {
-        this.cart.push(item)
+    addToCart(id) {
+        this.cart = this.cart.map(item => {
+            if (item.id === id) {
+                item.count++
+            }
+            return item
+        })
     }
 
-    removeFromCart(item) {
-        const index = this.cart.indexOf(item)
-        if (index > -1) {
-            this.cart.splice(index, 1)
-        }
+    minusFromCart(id) {
+        this.cart = this.cart.map(item => {
+            if (item.id === id) {
+                item.count--
+            }
+            return item
+        })
+        this.cart = this.cart.filter(item => item.count > 0)
+    }
+
+    removeFromCart(id) {
+        this.cart = this.cart.filter(item => item.id !== id)
     }
 
     clearCart() {
