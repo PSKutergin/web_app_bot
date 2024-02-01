@@ -3,6 +3,8 @@ import { useTelegram } from "./useTelegram"
 const cart = () => {
     const { tg, queryId } = useTelegram();
     const modal = document.querySelector('.overlay')
+    const cartFull = document.querySelector('.cart')
+    const cartEmpty = document.querySelector('.cart-empty')
     const cartList = document.querySelector('.cart-list')
     const cartOpenBtn = document.querySelector('.cart-button')
     const cartCloseBtn = document.querySelector('.close-btn')
@@ -12,10 +14,51 @@ const cart = () => {
         renderCart()
     }
 
+    const addItemToCart = (id) => {
+        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const newCart = cart.map(item => {
+            if (item.id === id) {
+                item.count++
+            }
+            return item
+        })
+
+        localStorage.setItem('cart', JSON.stringify(newCart))
+        renderCart()
+    }
+
+    const minusItemFromCart = (id) => {
+        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const newCart = cart.map(item => {
+            if (item.id === id) {
+                item.count--
+            }
+            return item
+        })
+
+        localStorage.setItem('cart', JSON.stringify(newCart))
+        renderCart()
+    }
+
+    const removeItemFromCart = (id) => {
+        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const newCart = cart.filter(item => item.id !== id)
+        localStorage.setItem('cart', JSON.stringify(newCart))
+        renderCart()
+    }
+
     const renderCart = () => {
         const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
 
         cartList.innerHTML = ''
+
+        if (cart.length > 0) {
+            cartEmpty.classList.add('hide')
+            cartFull.classList.remove('hide')
+        } else {
+            cartEmpty.classList.remove('hide')
+            cartFull.classList.add('hide')
+        }
 
         cart.forEach(item => {
             cartList.insertAdjacentHTML('beforeend', `
@@ -58,6 +101,37 @@ const cart = () => {
             </li>
             `)
         });
+
+        const addItemBtn = document.querySelectorAll('.add-btn');
+        const minusItemBtn = document.querySelectorAll('.minus-btn');
+        const removeItemBtn = document.querySelectorAll('.remove-btn');
+
+        addItemBtn.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                const parent = e.target.closest('.cart-item');
+                const id = parent.getAttribute('data-id');
+
+                addItemToCart(id);
+            })
+        })
+
+        minusItemBtn.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                const parent = e.target.closest('.cart-item');
+                const id = parent.getAttribute('data-id');
+
+                minusItemFromCart(id);
+            })
+        })
+
+        removeItemBtn.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                const parent = e.target.closest('.cart-item');
+                const id = parent.getAttribute('data-id');
+
+                removeItemFromCart(id);
+            })
+        })
     }
 
     cartOpenBtn.addEventListener('click', openCart);

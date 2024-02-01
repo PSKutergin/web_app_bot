@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "http://91.236.199.19:443/*"
+  from = "/*"
   to = "/index.html"
   status = 200
