@@ -44,6 +44,7 @@ const products = async (url) => {
                 })
             }
 
+            showCountCart(cart)
             showMainButton(cart)
 
             localStorage.setItem('cart', JSON.stringify(cart))
