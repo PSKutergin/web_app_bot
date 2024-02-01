@@ -143,10 +143,12 @@ a {
 }
 
 .cart {
+    padding: 10px;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
     background: var(--tg-theme-bg-color);
     border-radius: 5px;
@@ -224,4 +226,9 @@ a {
 
 .remove-btn svg path {
     stroke: darkred;
+}
+
+.order-btn {
+    width: 50%;
+    margin-top: 20px;
 }
