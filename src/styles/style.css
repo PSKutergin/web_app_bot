@@ -214,6 +214,11 @@ a {
     color: var(--tg-theme-text-color);
 }
 
+.cart-total {
+    font-weight: bold;
+    color: var(--tg-theme-text-color);
+}
+
 .add-btn,
 .minus-btn,
 .remove-btn,

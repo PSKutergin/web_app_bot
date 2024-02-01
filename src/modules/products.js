@@ -1,17 +1,12 @@
 import getProducts from "./getProducts"
 import { useTelegram } from "./useTelegram"
+import { getTotalPrice } from "./helpers"
 
 const products = async (url) => {
     const { tg, queryId } = useTelegram();
     const products = await getProducts(url)
     const container = document.querySelector('.products')
     let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
-
-    const getTotalPrice = (items) => {
-        return items.reduce((acc, item) => {
-            return acc += item.price
-        }, 0)
-    }
 
     const showMainButton = (cart) => {
         if (cart.length > 0) {
@@ -44,6 +39,7 @@ const products = async (url) => {
 
     btns.forEach(btn => {
         btn.addEventListener('click', (event) => {
+            cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
             const id = event.target.closest('.product').dataset.id
             const product = products.find(product => product.id === id)
 
