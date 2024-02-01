@@ -35,7 +35,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    border-bottom: 1px solid var(--tg-theme-bg-color);
+    background: var(--tg-theme-header-bg-color);
     position: fixed;
     width: 100%;
     top: 0;
