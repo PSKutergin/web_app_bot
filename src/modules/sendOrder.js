@@ -13,7 +13,7 @@ const sendOrder = async (addedItems) => {
     const response = await fetch('/api/web-data', {
         method: 'POST',
         headers: {
-            'ngrok-skip-browser-warning': 'true',
+            // 'ngrok-skip-browser-warning': 'true',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(order)

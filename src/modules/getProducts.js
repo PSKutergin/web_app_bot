@@ -2,7 +2,7 @@ const getProducts = async (url) => {
     const response = await fetch('/api/products', {
         method: 'GET',
         headers: {
-            'ngrok-skip-browser-warning': 'true',
+            // 'ngrok-skip-browser-warning': 'true',
             'Content-Type': 'application/json'
         }
     })
