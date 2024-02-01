@@ -142,6 +142,7 @@ const cart = () => {
 
         sendOrderBtn.addEventListener('click', () => {
             sendOrder(cart)
+            localStorage.setItem('cart', JSON.stringify([]))
         })
     }
 
