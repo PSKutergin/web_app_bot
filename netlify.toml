@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "/:splat 200"
+  from = "http://91.236.199.19:443/*"
   to = "/index.html"
   status = 200
