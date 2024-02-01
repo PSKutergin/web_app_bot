@@ -64,8 +64,8 @@ a {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: red;
-    color: white;
+    background: var(--tg-theme-button-color);
+    color: var(--tg-theme-text-color);
     text-align: center;
     font-size: 12px;
     line-height: 20px;
