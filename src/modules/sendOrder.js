@@ -10,7 +10,7 @@ const sendOrder = async (addedItems) => {
         queryId: queryId
     }
 
-    await fetch(API_URL + '/web-data', {
+    const response = await fetch(API_URL + '/web-data', {
         method: 'POST',
         headers: {
             'ngrok-skip-browser-warning': 'true',
@@ -18,6 +18,8 @@ const sendOrder = async (addedItems) => {
         },
         body: JSON.stringify(order)
     })
+    const data = await response.json()
+    return data
 }
 
 export default sendOrder
