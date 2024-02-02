@@ -110,6 +110,7 @@ const cart = (cartItems) => {
         })
 
         sendOrderBtn.addEventListener('click', () => {
+            const cart = cartItems.getCart()
             sendOrder(cart)
             cartItems.clearCart()
         })
